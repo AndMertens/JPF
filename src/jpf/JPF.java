@@ -6,13 +6,15 @@
 
 package jpf;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Laptop-andy
  */
 public class JPF {
 
-     /**
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -32,8 +34,136 @@ public class JPF {
      //berekenGemiddelde(8,6,9,4);
      //berekenWisselgeld(0.42F);
      //berekenTijd(5924);
+         
+     // OEFENINGEN HOOFDSTUK 4 (6 tm 10)
      //lijstVanGetallen();
+     //genereerGetallen();
+     //sorteerGetallen();
+     //genereerLottoGetallen();   
+     //aantalHuisdieren();
+    }
+    
+    // OEFENINGEN HOOFDSTUK 4 (6 tm 10)
+    static protected void aantalHuisdieren(){
+        int aantalHuisdieren;
+        System.out.print("Hoeveel huisdieren hebt u? ");
+        Scanner huisdier = new Scanner(System.in);
+        aantalHuisdieren = huisdier.nextInt();
+        System.out.println();
         
+        switch(aantalHuisdieren) {
+            case 1:
+                System.out.println("Je hebt 1 huisdier");
+                break;
+            case 2:
+                System.out.println("Je hebt 2 huisdieren");
+                break;
+            case 3:
+                System.out.println("Je hebt 3 huisdieren");
+                break;
+            default:
+                System.out.println("Je hebt meer dan 3 huisdieren");
+                
+        }       
+        
+    }
+    
+    static protected void genereerLottoGetallen(){
+        int [] reeksGetallen= new int[6];
+        int lottoGetal;
+        boolean IsAlGetrokken;
+        //vul reeks getallen
+        for(int i=0; i<reeksGetallen.length;i++) {
+            /*random gaat tussen 0 en 1 : om grens 1-42 te nemen voegen we 0.01 toe aan de generator
+            en vermenigvuldigen met 42 */
+            do {
+                IsAlGetrokken=false;
+                lottoGetal = (int)((Math.random()+0.01F)*42);
+                for(int j=0;j<=i;j++) {
+                    if (reeksGetallen[j]==lottoGetal)
+                        IsAlGetrokken=true;
+                }
+            }
+                while(IsAlGetrokken);
+                reeksGetallen[i]= lottoGetal;
+        }
+        
+        //Sorter reeks getallen
+        int tempGetal;
+        for(int i=0; i<reeksGetallen.length-1;i++) {
+            tempGetal=0;
+            for(int j=i+1;j<reeksGetallen.length;j++) {
+                if(reeksGetallen[i]>reeksGetallen[j]) {
+                    tempGetal=reeksGetallen[j]; 
+                    reeksGetallen[j]=reeksGetallen[i];
+                    reeksGetallen[i]= tempGetal;
+                }
+            }
+        }
+            
+        //Druk reeks getallen af
+        for(int i=0; i<reeksGetallen.length;i++) {
+            System.out.println(reeksGetallen[i]);
+        }
+    }
+    
+    static protected void sorteerGetallen() {
+        int [] reeksGetallen= new int[100];
+        
+        //vul reeks getallen
+        for(int i=0; i<reeksGetallen.length;i++) {
+            //random geet tussen 0 en 1 : om grens 1-1000 te nemen voegen we 0.01 toe aan de generator
+            reeksGetallen[i]= (int)((Math.random()+0.001F)*1000);
+        }
+        //Sorter reeks getallen
+        int tempGetal;
+        for(int i=0; i<reeksGetallen.length-1;i++) {
+            tempGetal=0;
+            for(int j=i+1;j<reeksGetallen.length;j++) {
+                if(reeksGetallen[i]>reeksGetallen[j]) {
+                    tempGetal=reeksGetallen[j]; 
+                    reeksGetallen[j]=reeksGetallen[i];
+                    reeksGetallen[i]= tempGetal;
+                }
+            }
+        }
+            
+        //Druk reeks getallen af
+        for(int i=0; i<reeksGetallen.length;i++) {
+            System.out.println(reeksGetallen[i]);
+        }
+    }
+            
+    static protected void genereerGetallen(){
+        int [] reeksGetallen= new int[10000];
+               
+        for(int i=0; i<reeksGetallen.length;i++) {
+            //random geet tussen 0 en 1 : om grens 1-100 te nemen voegen we 0.01 toe aan de generator
+            reeksGetallen[(int)((Math.random()+0.01F)*100)]+= 1;
+        }
+        
+        for(int i=0; i<reeksGetallen.length;i++) {
+            if(reeksGetallen[i]!=0)
+                System.out.println("Getal " + i + " : " + reeksGetallen[i] + " maal") ;
+        }
+    }
+    
+    static protected void lijstVanGetallen(){
+        int [] reeksGetallen = new int[5];
+        long somGetallen=0;
+        
+        // vul de lijst op
+        for(int i=0;i<reeksGetallen.length;i++)
+             reeksGetallen[i]=(int)(Math.random()*1000);
+        
+        //print resultaat
+        for(int i=0;i<reeksGetallen.length;i++)
+        {
+            System.out.println("Getal " + i + " : " + reeksGetallen[i]);
+            somGetallen+=reeksGetallen[i];
+        }
+            System.out.println("Som van de getallen is : " + somGetallen);
+            System.out.println("Gemiddelde is : " + (float)somGetallen/reeksGetallen.length);
     }
     
     // OEFENINGEN HOOFDSTUK 2 (1 tm 5)
@@ -119,23 +249,7 @@ public class JPF {
         System.out.println("U:" + aantalUren + " M:" + aantalMinuten + " S:" + (byte)tijdInSeconden);
     }
     
-    static protected void lijstVanGetallen(){
-        int [] reeksGetallen = new int[5];
-        long somGetallen=0;
-        
-        // vul de lijst op
-        for(int i=0;i<reeksGetallen.length;i++)
-             reeksGetallen[i]=(int)(Math.random()*1000);
-        
-        //print resultaat
-        for(int i=0;i<reeksGetallen.length;i++)
-        {
-            System.out.println("Getal " + i + " : " + reeksGetallen[i]);
-            somGetallen+=reeksGetallen[i];
-        }
-            System.out.println("Som van de getallen is : " + somGetallen);
-            System.out.println("Gemiddelde is : " + (float)somGetallen/reeksGetallen.length);
-    }
+   
     
     //THEORIE HOOFDSTUK 2
     static protected void berekenBMI(float gewicht, float lengte)
